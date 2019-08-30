@@ -1,6 +1,15 @@
 Pipes is a simple lib to do stuff in the pipline.
 
-Code example
+```go
+For example, let's take this kind of composition 
+//        [+2]     [*10]
+// gen -> pipe1 -> pipe2 \
+//                        -> sink  \   [elem%2==0 & elem > 0]
+//                 gen1  /   gen2   ->      filtersink      -> print
+//                           gen3  /
+```
+
+Code example would be:
 ```go
 ctx := context.Background()
 data := []interface{}{1, 2, 3, 4, 5, 6, 7, 8}
