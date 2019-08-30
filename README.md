@@ -1,7 +1,7 @@
 Pipes is a simple lib to do stuff in the pipline.
 
-```go
-For example, let's take this kind of composition 
+*For example, let's take this kind of composition:*
+```go 
 //        [+2]     [*10]
 // gen -> pipe1 -> pipe2 \
 //                        -> sink  \   [elem%2==0 & elem > 0]
@@ -9,7 +9,7 @@ For example, let's take this kind of composition
 //                           gen3  /
 ```
 
-Code example would be:
+*Code example would be:*
 ```go
 ctx := context.Background()
 data := []interface{}{1, 2, 3, 4, 5, 6, 7, 8}
@@ -70,3 +70,12 @@ for val := range filtersink {
 	fmt.Println(val)
 }
 ```
+
+*Lib use only 4 constructs:*
+1) _Source_ that is start of the pipeline, and produce some data
+2) _Pipe_ that connect to the _Source_, other _Pipe_ or some _Sink_ or output some data after transformation (if needed)
+3) _Sink_ use multiple source and combine them. Sources can be some _Source_, _Pipe_ or other _Sink_. This construct just combine data, filtering or data transforming is not allowed here.
+4) _FilterSink_, same idea as _Sink_, but we can do filtering here.
+
+*Data filtering:*
+To filter data, define _Processor_ _func_ that accept slice of interfaces and return _interface{}_, so that we could pass any data type
